@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mahi 🖤 x Bishal</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .slide {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      width: 100%;
+    }
+    .active {
+      display: flex;
+    }
+    button {
+      padding: 12px 20px;
+      font-size: 18px;
+      border: none;
+      background: #ff69b4;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    input[type="password"] {
+      padding: 10px;
+      font-size: 18px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+    .floating {
+      position: absolute;
+      animation: float 10s linear infinite;
+      font-size: 20px;
+      opacity: 0.7;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    }
+    .brain {
+      font-size: 80px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); color: #ff69b4; }
+      50% { transform: scale(1.2); color: #fff; }
+      100% { transform: scale(1); color: #ff69b4; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="slide active" id="slide1">
+  <h1>Hi Mahi 🖤</h1>
+  <button onclick="nextSlide(2)">Hello Bishal</button>
+</div>
+
+<div class="slide" id="slide2">
+  <h2>Do you want to enter Bishal's Brain?</h2>
+  <div style="display: flex; gap: 20px;">
+    <button id="yesBtn" onclick="nextSlide(3)">Yes</button>
+    <button id="noBtn" onclick="switchButtons()">No</button>
+  </div>
+</div>
+
+<div class="slide" id="slide3">
+  <h2>Enter password to unlock Bishal's brain</h2>
+  <input type="password" id="passwordBox" placeholder="Password">
+  <button onclick="checkPassword()">Unlock</button>
+  <div class="error" id="errorMsg"></div>
+</div>
+
+<div class="slide" id="slide4">
+  <h1>Welcome Home</h1>
+  <button onclick="nextSlide(5)">Continue</button>
+</div>
+
+<div class="slide" id="slide5">
+  <div class="brain">🧠</div>
+  <h2>Unlocking Bishal's Brain...</h2>
+  <button onclick="showLove()">Start</button>
+</div>
+
+<div class="slide" id="slide6">
+  <div id="floatingArea"></div>
+  <button onclick="loveToggle(this)">I hate you</button>
+</div>
+
+<div class="slide" id="slide7">
+  <h1>Thanks for visiting my brain</h1>
+</div>
+
+<script>
+  function nextSlide(n) {
+    document.querySelectorAll('.slide').forEach(slide => slide.classList.remove('active'));
+    document.getElementById('slide' + n).classList.add('active');
+  }
+
+  function switchButtons() {
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    yesBtn.parentNode.insertBefore(noBtn, yesBtn);
+  }
+
+  function checkPassword() {
+    const input = document.getElementById('passwordBox').value;
+    const errorMsg = document.getElementById('errorMsg');
+    if (input === "13189") {
+      errorMsg.textContent = "";
+      nextSlide(4);
+    } else {
+      errorMsg.textContent = "Wrong Password, try again";
+    }
+  }
+
+  function showLove() {
+    nextSlide(6);
+    const area = document.getElementById("floatingArea");
+    const emojis = ["Mahi🖤", "I 🥺 you", "🌹", "❤️‍🔥", "🌷", "🪻"];
+    for (let i = 0; i < 300; i++) {
+      const span = document.createElement("span");
+      span.classList.add("floating");
+      span.style.left = Math.random() * 100 + "vw";
+      span.style.top = Math.random() * 100 + "vh";
+      span.textContent = (i % 30 === 0) ? "I 🥺 you" : emojis[Math.floor(Math.random() * emojis.length)];
+      area.appendChild(span);
+    }
+  }
+
+  function loveToggle(btn) {
+    if (btn.textContent === "I hate you") {
+      btn.textContent = "I love you";
+      setTimeout(() => nextSlide(7), 1500);
+    }
+  }
+</script>
+
+</body>
+</html>
